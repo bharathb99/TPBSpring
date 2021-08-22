@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+	<mvc:annotation-driven/>	
+	<context:component-scan base-package="com.tp.*"></context:component-scan>
+	<context:property-placeholder location="classpath:database.properties"/>
+	<tx:annotation-driven/>
+	
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="/WEB-INF/pages/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${database.driver}"></property>
+		<property name="url" value="${database.url}"></property>
+		<property name="username" value="${database.username}"></property>
+		<property name="password" value="${database.password}"></property>		
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.tp.entity.Address</value>
+				<value>com.tp.entity.Customer</value>
+				<value>com.tp.entity.FourWheeler</value>
+				<value>com.tp.entity.Name</value>
+				<value>com.tp.entity.Packages</value>
+				<value>com.tp.entity.PackageBooking</value>
+				<value>com.tp.entity.RentalTransport</value>
+				<value>com.tp.entity.TwoWheeler</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>		
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="customer" class="com.tp.entity.Customer"/>
+	<bean id="customerDao" class="com.tp.dao.CustomerDaoImpl"/>
+	<bean id="customerService" class="com.tp.service.CustomerServiceImpl"/>
+	<bean id="address" class="com.tp.entity.Address"/>
+	<bean id="name" class="com.tp.entity.Name"/>
+	
+	<bean id="pack" class="com.tp.entity.Packages"/>
+	<bean id="packageDao" class="com.tp.dao.PackageDaoImpl"/>
+	<bean id="packageService" class="com.tp.service.PackageServiceImpl"/>
+	
+	<bean id="packageBooking" class="com.tp.entity.PackageBooking"/>
+	<bean id="packageBookingDao" class="com.tp.dao.PackageBookingDaoImpl"/>
+	<bean id="packageBookingService" class="com.tp.service.PackageBookingServiceImpl"/>
+	
+	<bean id="rentalTransport" class="com.tp.entity.RentalTransport"/>
+	<bean id="rentalTransportDao" class="com.tp.dao.RentalTransportDaoImpl"/>
+	<bean id="rentalTransportService" class="com.tp.service.RentalTransportServiceImpl"/>
+	<bean id="twoWheeler" class="com.tp.entity.TwoWheeler"/>
+	<bean id="fourWheeler" class="com.tp.entity.FourWheeler"/>
+			
+</beans>
