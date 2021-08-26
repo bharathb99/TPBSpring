@@ -2,6 +2,7 @@ package com.tp.controller;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +18,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tp.entity.PackageBooking;
-
 import com.tp.service.PackageBookingService;
 
+/**
+ * The Class PackageBookingRestController.
+ */
 @CrossOrigin(origins="http://localhost:4200",methods={RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 @RestController
 @RequestMapping(value = "/packageBooking")
 public class PackageBookingRestController {
+	
+	/** The package booking service. */
 	@Autowired
 	PackageBookingService packageBookingService;
 	
+	/** The Constant logger. */
+	@SuppressWarnings("unused")
+	private static final Logger logger = Logger.getLogger("PackageBookingRestController.class");
+	
+	/**
+	 * Gets the package bookings.
+	 * @author Dhanushya
+	 * @return the package bookings
+	 */
 	@GetMapping("/allPackBooking")
 	public ResponseEntity<List<PackageBooking>> allPackageBookings() {
 		
@@ -40,12 +54,26 @@ public class PackageBookingRestController {
 		return new ResponseEntity<List<PackageBooking>>(packbookinglist,HttpStatus.OK);		
 	}
 	
+	/**
+	 * Creates the package booking.
+	 *
+	 * @param packBooking the package booking
+	 * @return the package booking
+	 */
 	@PostMapping("/createPackBooking")
 	public PackageBooking createPackage(@RequestBody PackageBooking packBooking) {
 		packageBookingService.createPackageBooking(packBooking);
 		return packBooking;
 	}
 	
+	/**
+	 * Update package booking.
+	 * @author Dhanushya
+	 * @param packBooking This param includes
+	 *               the details of package booking
+	 *               to be updated
+	 * @return the response entity
+	 */
 	@PutMapping("/updatePackBooking")
 	public ResponseEntity<List<PackageBooking>> updatePackageBooking(@RequestBody PackageBooking packBooking) {
 		
@@ -59,6 +87,13 @@ public class PackageBookingRestController {
 		return new ResponseEntity<List<PackageBooking>>(packBookinglist,HttpStatus.OK);		
 	}
 	
+	/**
+	 * Delete package booking.
+	 * @author Dhanushya
+	 * @param id  This param includes which
+	 *             package booking should be deleted
+	 * @return the response entity
+	 */
 	@DeleteMapping("/deletePackBooking/{id}")
 	public ResponseEntity<List<PackageBooking>> deletePackageBooking(@PathVariable("id") int pbid) {
 		
@@ -72,6 +107,14 @@ public class PackageBookingRestController {
 		return new ResponseEntity<List<PackageBooking>>(packBookinglist,HttpStatus.OK);		
 	}
 	
+	/**
+	 * Gets the package bookings.
+	 * @author Dhanushya
+	 * @param id  This param includes 
+	 *              the id of a package booking
+	 *                to retrive details
+	 * @return the package bookings
+	 */	
 	@GetMapping("/getPackBookingAdmin/{id}")
 	public ResponseEntity<PackageBooking> getPackageBookingById(@PathVariable("id") int pbid) {
 		
@@ -85,6 +128,14 @@ public class PackageBookingRestController {
 		return new ResponseEntity<PackageBooking>(packBooking,HttpStatus.OK);		
 	}
 	
+	/**
+	 * Gets the package bookings.
+	 * @author Dhanushya
+	 * @param id  This param includes 
+	 *              the id of a customer
+	 *                to retrive package bookings details
+	 * @return the package bookings
+	 */	
 	@GetMapping("/getPackBookingCustomer/{id}")
 	public ResponseEntity<List<PackageBooking>> getPackageBookingByCId(@PathVariable("id") int cid) {
 		

@@ -2,6 +2,10 @@ package com.tp.entity;
 
 import javax.persistence.Embeddable;
 
+/**
+ * The Class Name.
+ * @author Chiranjeevi
+ */
 @Embeddable
 public class Name {
 

@@ -34,12 +34,9 @@
 			<list>
 				<value>com.tp.entity.Address</value>
 				<value>com.tp.entity.Customer</value>
-				<value>com.tp.entity.FourWheeler</value>
 				<value>com.tp.entity.Name</value>
 				<value>com.tp.entity.Packages</value>
 				<value>com.tp.entity.PackageBooking</value>
-				<value>com.tp.entity.RentalTransport</value>
-				<value>com.tp.entity.TwoWheeler</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -68,11 +65,5 @@
 	<bean id="packageBooking" class="com.tp.entity.PackageBooking"/>
 	<bean id="packageBookingDao" class="com.tp.dao.PackageBookingDaoImpl"/>
 	<bean id="packageBookingService" class="com.tp.service.PackageBookingServiceImpl"/>
-	
-	<bean id="rentalTransport" class="com.tp.entity.RentalTransport"/>
-	<bean id="rentalTransportDao" class="com.tp.dao.RentalTransportDaoImpl"/>
-	<bean id="rentalTransportService" class="com.tp.service.RentalTransportServiceImpl"/>
-	<bean id="twoWheeler" class="com.tp.entity.TwoWheeler"/>
-	<bean id="fourWheeler" class="com.tp.entity.FourWheeler"/>
 			
 </beans>

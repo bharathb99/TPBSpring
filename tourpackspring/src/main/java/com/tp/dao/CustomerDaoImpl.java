@@ -14,25 +14,46 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tp.entity.Customer;
 
+/**
+ * The Class CustomerDaoImpl.
+ * @author Bharath
+ */
 @Repository
 @Transactional
 public class CustomerDaoImpl implements CustomerDao{
 
-
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	/**
+	 * Gets the session.
+	 * 
+	 * @return the session
+	 */
 	protected Session getSession()
 	{
 		return sessionFactory.getCurrentSession();
 	}
 
+	/**
+	 * Creates the customer.
+	 * 
+	 * @author Bharath
+	 * @param customer the customer
+	 */
 	@Override
 	public void createCustomer(Customer customer) {
 		getSession().saveOrUpdate(customer);
 		System.out.println("Customer has been stored successfully in DB !");
 	}
 	
+	/**
+	 * Gets the customer list.
+	 * 
+	 * @author Bharath
+	 * @return the customer list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Customer> getAllCustomers() {
@@ -48,6 +69,13 @@ public class CustomerDaoImpl implements CustomerDao{
 		return cuslist;
 	}
 	
+	/**
+	 * Gets the customer.
+	 * 
+	 * @author Bharath
+	 * @param email the email 
+	 * @return the customer
+	 */
 	@Override
 	public Customer getCustomer(String email) {
 		Criteria c = getSession().createCriteria(Customer.class);
@@ -57,6 +85,12 @@ public class CustomerDaoImpl implements CustomerDao{
 		return cus;
 	}
 
+	/**
+	 * Update customer.
+	 *
+	 * @param customer the customer
+	 * @return the list
+	 */
 	@Override
 	public List<Customer> updateCustomer(Customer customer) {
 		getSession().saveOrUpdate(customer);
@@ -65,6 +99,12 @@ public class CustomerDaoImpl implements CustomerDao{
 		return getAllCustomers();
 	}
 
+	/**
+	 * Delete customer.
+	 *
+	 * @param cno the cno
+	 * @return the list
+	 */
 	@Override
 	public List<Customer> deleteCustomer(int cno) {
 		Query query = getSession().createQuery("delete from Customer cus where customerid=:cno");
@@ -77,6 +117,13 @@ public class CustomerDaoImpl implements CustomerDao{
 		return getAllCustomers();
 	}
 
+	/**
+	 * Gets the customer.
+	 * 
+	 * @author Bharath
+	 * @param cid the cid
+	 * @return the customer
+	 */
 	@Override
 	public Customer getCustomerById(int cid) {
 		Criteria c = getSession().createCriteria(Customer.class);

@@ -2,6 +2,10 @@ package com.tp.entity;
 
 import javax.persistence.Embeddable;
 
+/**
+ * The Class Address.
+ * @author Chiranjeevi
+ */
 @Embeddable
 public class Address {
 

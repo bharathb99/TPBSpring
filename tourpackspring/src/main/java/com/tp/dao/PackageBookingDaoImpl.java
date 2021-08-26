@@ -13,27 +13,71 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tp.entity.PackageBooking;
 
+/**
+ * The Class PackageBookingDaoImpl.
+ * @author Dhanushya
+ */
 @Repository
 @Transactional
 public class PackageBookingDaoImpl implements PackageBookingDao {
-
+	
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * Gets the session.
+	 * 
+	 * @return the session
+	 */
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
+	/**
+	 * Creates the packagebooking.
+	 * 
+	 * @author Dhanushya
+	 * @param customer the packagebooking
+	 */
 	@Override
 	public void createPackageBooking(PackageBooking packBooking) {
-
-		packBooking.setPackageCost(((packBooking.getPack().getCostPerDay() + packBooking.getPack().getHotelCostPerDay())
-				* packBooking.getNoOfPeope() + packBooking.getRentTransport().getChargesPerDay())
-				* packBooking.getNoOfDays());
+		System.out.println(packBooking);
+//		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+//		
+//		Date DiscountStartDate = new Date();
+//		try {
+//			DiscountStartDate = formatter.parse("25-08-2021");
+//		} catch (ParseException e1) {
+//			e1.printStackTrace();
+//		}
+//		Date DiscountEndDate = new Date();
+//		try {
+//			DiscountEndDate = formatter.parse("27-08-2021");
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//		double discount = 0.10;
+//		if(((packBooking.getBookingDate()).after(DiscountStartDate))&&((packBooking.getBookingDate()).before(DiscountEndDate))) {
+//		packBooking.setPackageCost((((packBooking.getPack().getCostPerDay() + packBooking.getPack().getHotelCostPerDay())
+//				* packBooking.getNoOfPeope() + packBooking.getRentTransport().getChargesPerDay())
+//				* packBooking.getNoOfDays())*(1-discount));
+//		}
+//		else {
+			packBooking.setPackageCost(((packBooking.getPack().getCostPerDay() + packBooking.getPack().getHotelCostPerDay())
+					* packBooking.getNoOfPeope())
+					* packBooking.getNoOfDays());
+//		}
 		getSession().saveOrUpdate(packBooking);
 		System.out.println("PackageBooking has been stored successfully in DB !");
 	}
 
+	/**
+	 * Gets the packagebooking list.
+	 * 
+	 * @author Dhanushya
+	 * @return the packagebooking list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PackageBooking> getAllPackageBookings() {
@@ -44,17 +88,28 @@ public class PackageBookingDaoImpl implements PackageBookingDao {
 		return packBookinglist;
 	}
 
+	/**
+	 * Updates the packagebooking.
+	 * 
+	 * @author Dhanushya
+	 * @return the packagebooking.
+	 */
 	@Override
 	public List<PackageBooking> updatePackageBooking(PackageBooking packBooking) {
 
 		packBooking.setPackageCost(((packBooking.getPack().getCostPerDay() + packBooking.getPack().getHotelCostPerDay())
-				* packBooking.getNoOfPeope() + packBooking.getRentTransport().getChargesPerDay())
-				* packBooking.getNoOfDays());
+				* packBooking.getNoOfPeope())* packBooking.getNoOfDays());
 		getSession().saveOrUpdate(packBooking);
 		System.out.println("Package has been updated successfully in DB !");
 		return getAllPackageBookings();
 	}
 
+	/**
+	 * Delete packagebooking.
+	 * @author Dhanushya
+	 * @param pbno the pbno
+	 * @return the list
+	 */
 	@Override
 	public List<PackageBooking> deletePackageBooking(int pbno) {
 
@@ -67,6 +122,13 @@ public class PackageBookingDaoImpl implements PackageBookingDao {
 		return getAllPackageBookings();
 	}
 
+	/**
+	 * Gets the packagebooking.
+	 * 
+	 * @author Dhanushya
+	 * @param pbid the pbid
+	 * @return the packagebooking
+	 */
 	@Override
 	public PackageBooking getPackageBookingById(int pbid) {
 
@@ -77,6 +139,12 @@ public class PackageBookingDaoImpl implements PackageBookingDao {
 		return packBooking;
 	}
 
+	/**
+	 * Gets the packagebooking.
+	 * @author Dhanushya
+	 * @param cid the cid
+	 * @return the packagebooking list.
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PackageBooking> getPackageBookingsByCId(int cid) {
